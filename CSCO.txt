@@ -1,0 +1,81 @@
+For Lan ICON
+Router>ena (for tuning on the router)
+Router#conf
+Router#conf t
+Router (config)#no shutdown
+Router (config)#inte
+Router (config)#interface gig
+Router (config)#interface gigbitEthernet 0/0
+Router (config-if)#no shut
+Router (config-if)#exit
+
+
+Router (config)#inte
+Router (config)#interface gig
+Router (config)#interface gigbitEthernet 0/0.1
+Router (config-subif)#encapsulation dot
+Router (config-subif)#encapsulation dot1Q 1
+Router (config-subif)#ip add
+Router (config-subif)#ip address 192.168.1.1 255.255.255.0
+Router (config-subif)#exit
+
+Router (config)#interface gigbitEthernet 0/0.2
+Router (config-subif)#encapsulation dot1Q 2
+Router (config-subif)#ip address 192.168.20.1 255.255.255.0
+Router (config-subif)#exit
+
+Router (config)#interface gigbitEthernet 0/0.3
+Router (config-subif)#encapsulation dot1Q 3
+Router (config-subif)#ip address 192.168.30.1 255.255.255.0
+Router (config-subif)#exit
+
+for double checking
+Router (config)# do sh run
+Router (config)#exit
+
+Switch>ena
+Switch#conf t
+Switch(config)#interface gig
+Switch(config)#interface gigbitEthernet 0/1
+Switch(config-if)#swit
+Switch(config-if)#switchport trunk allowed vlan 1-100
+Switch(config-if)#switchport mode trunk 
+
+router>ena
+Router#conf t
+Router (config)#ip dhcp pool vlan1
+Router (dhcp-config)#network
+Router (dhcp-config)#network192.168.1.0 255.255.255.0
+Router (dhcp-config)#exit
+Router (config)#ip dhcp pool vlan2
+Router (dhcp-config)#network 192.168.20.0 255.255.255.0
+Router (config)#ip dhcp pool vlan3
+Router (dhcp-config)#network 192.168.30.0 255.255.255.0
+
+for excluding the IP Add
+Router (config)#ip dhcp
+Router (config)#ip dhcp exc
+Router (config)#ip dhcp excluded-address 192.168.1.1 - 192.168.1.22
+
+
+For MainSwitch ICON
+
+switch#conf
+Switch(config)#int
+
+Switch(config)#interface fast
+Switch(config)#interface fastEthernet 0/1
+Switch(config)#switchport access vlan 2 
+Switch(config-if)#switch mode access
+Switch(config-if)#exit
+
+Switch(config)#interface fast
+Switch(config)#interface fastEthernet 0/2
+Switch(config)#switchport access vlan 3
+Switch(config-if)#switch mode access
+Switch(config-if)#exit
+
+
+check for communication
+ping 192.168.20.1
+ 
